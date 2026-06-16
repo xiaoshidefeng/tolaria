@@ -214,6 +214,7 @@ export function InlineWikilinkInput({
   paletteFooter,
 }: InlineWikilinkInputProps) {
   const [renderVersion, forceRender] = useState(0)
+  const [isComposing, setIsComposing] = useState(false)
   const isComposingRef = useRef(false)
   const segments = useMemo(
     () => buildInlineWikilinkSegments(value, entries),
@@ -507,9 +508,11 @@ export function InlineWikilinkInput({
   }
   const handleCompositionStart = () => {
     isComposingRef.current = true
+    setIsComposing(true)
   }
   const handleCompositionEnd = (compositionEditor: HTMLDivElement) => {
     isComposingRef.current = false
+    setIsComposing(false)
     queueMicrotask(() => flushPendingCompositionInput(compositionEditor))
   }
   const handleInput = () => {
@@ -559,6 +562,7 @@ export function InlineWikilinkInput({
       key={renderVersion}
       value={value}
       placeholder={placeholder}
+      isComposing={isComposing}
       disabled={disabled}
       inputRef={setCombinedRef}
       dataTestId={dataTestId}

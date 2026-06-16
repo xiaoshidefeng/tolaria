@@ -167,6 +167,7 @@ export function InlineWikilinkSuggestionList({
 export function InlineWikilinkEditorField({
   value,
   placeholder,
+  isComposing,
   disabled,
   inputRef,
   dataTestId,
@@ -186,6 +187,7 @@ export function InlineWikilinkEditorField({
 }: {
   value: string
   placeholder?: string
+  isComposing?: boolean
   disabled: boolean
   inputRef: React.Ref<HTMLDivElement>
   dataTestId: string
@@ -220,7 +222,7 @@ export function InlineWikilinkEditorField({
 
   return (
     <div className="relative">
-      {value.length === 0 && placeholder && (
+      {value.length === 0 && !isComposing && placeholder && (
         <div
           className={cn(
             'pointer-events-none absolute inset-0 text-muted-foreground',
